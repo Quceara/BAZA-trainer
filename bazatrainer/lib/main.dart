@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'registration.dart';
-import 'profile.dart'; // Импортируем файл с виджетом профиля
+import 'first_launch.dart';
+import 'profile.dart';
 
 void main() {
   runApp(BazaTrainerApp());
@@ -14,7 +15,7 @@ class BazaTrainerApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: RegistrationPage(), // Устанавливаем ProfilePage как главную страницу
+      home: first_launch_build(),
     );
   }
 }
