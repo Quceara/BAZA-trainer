@@ -1,28 +1,35 @@
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatelessWidget {
+void main() {
+  runApp(MaterialApp(
+    home: ProfilePage(),
+  ));
+}
 
+class ProfilePage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView( // Обернем UserHomePage в SingleChildScrollView
+      body: SingleChildScrollView(
         child: UserHomePage(),
       ),
-      key:  _scaffoldKey,
+      key: _scaffoldKey,
       appBar: AppBar(
-        title: Text('Имя пользователя'),
+        title: Text('Имя пользователя1'),
         automaticallyImplyLeading: false,
-        backgroundColor: Color.fromRGBO(11, 11, 11, 1),
+        elevation: 0,
+        backgroundColor: Color.fromRGBO(27, 27, 27, 1), // Прозрачный фон AppBar
         leading: IconButton(
           icon: Icon(Icons.menu),
-          onPressed: (){
+          onPressed: () {
             _scaffoldKey.currentState?.openDrawer();
           },
         ),
       ),
-      drawer: Drawer( // Боковое меню
+      backgroundColor: Color.fromRGBO(27, 27, 27, 1),
+      drawer: Drawer(
         child: Container(
           color: Colors.white,
           child: ListView(
@@ -30,7 +37,7 @@ class ProfilePage extends StatelessWidget {
             children: <Widget>[
               DrawerHeader(
                 decoration: BoxDecoration(
-                  color: Color.fromRGBO(122, 122, 122, 1),
+                  color: Color.fromRGBO(27, 27, 27, 1),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,7 +48,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      'Имя пользователя',
+                      'Имя пользователя123',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -128,6 +135,7 @@ class UserHomePage extends StatelessWidget {
               },
               child: Text('Редактировать'),
             ),
+            SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
@@ -137,6 +145,7 @@ class UserHomePage extends StatelessWidget {
               },
               child: Text('Редактировать'),
             ),
+            SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
@@ -146,6 +155,7 @@ class UserHomePage extends StatelessWidget {
               },
               child: Text('Редактировать'),
             ),
+            SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
@@ -155,6 +165,7 @@ class UserHomePage extends StatelessWidget {
               },
               child: Text('Редактировать'),
             ),
+            SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
@@ -164,6 +175,7 @@ class UserHomePage extends StatelessWidget {
               },
               child: Text('Редактировать'),
             ),
+            SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
@@ -173,6 +185,7 @@ class UserHomePage extends StatelessWidget {
               },
               child: Text('Редактировать'),
             ),
+            SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
@@ -182,6 +195,7 @@ class UserHomePage extends StatelessWidget {
               },
               child: Text('Редактировать'),
             ),
+            SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
@@ -191,6 +205,7 @@ class UserHomePage extends StatelessWidget {
               },
               child: Text('Редактировать'),
             ),
+            SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
@@ -200,6 +215,7 @@ class UserHomePage extends StatelessWidget {
               },
               child: Text('Редактировать'),
             ),
+            SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
@@ -209,6 +225,7 @@ class UserHomePage extends StatelessWidget {
               },
               child: Text('Редактировать'),
             ),
+            SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
@@ -221,7 +238,7 @@ class UserHomePage extends StatelessWidget {
           ],
         ),
       ),
-      color: Color.fromRGBO(33, 33, 33, 1),
+      color: Color.fromRGBO(27, 27, 27, 1),
     );
   }
 }

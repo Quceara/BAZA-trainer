@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'registration.dart';
 import 'first_launch.dart';
 import 'profile.dart';
+import 'input.dart';
 
 void main() {
   runApp(BazaTrainerApp());
+
 }
 
 class BazaTrainerApp extends StatelessWidget {

@@ -1,12 +1,39 @@
+import 'package:bazatrainer/first_launch.dart';
 import 'package:flutter/material.dart';
 import 'profile.dart';
+import 'calendar.dart';
 
 class RegistrationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'СОЗДАТЬ АККАУНТ',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 25,
+          ),
+        ),
+        automaticallyImplyLeading: false,
+        elevation: 0,
+        backgroundColor: Color.fromRGBO(27, 27, 27, 1),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => first_launch_build(),
+              ),
+            );
+          },
+        ),
+      ),
       body: Container(
-        color: Color.fromRGBO(33, 33, 33, 1), // Серый фон
+        color: Color.fromRGBO(27, 27, 27, 1), // Серый фон
         child: RegisterForm(),
       ),
     );
@@ -19,12 +46,33 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
+
   final _formKey = GlobalKey<FormState>();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
   TextEditingController _surnameController = TextEditingController();
   bool isButton1Pressed = false;
+  bool isDatePickerVisible = false;
+  int _selectedDay = DateTime.now().day;
+  int _selectedMonth = DateTime.now().month;
+  int _selectedYear = DateTime.now().year;
+
+  // FocusNode для каждого текстового поля
+  FocusNode _nameFocus = FocusNode();
+  FocusNode _surnameFocus = FocusNode();
+  FocusNode _emailFocus = FocusNode();
+  FocusNode _passwordFocus = FocusNode();
+
+  @override
+  void dispose() {
+    // Освобождаем ресурсы FocusNode
+    _nameFocus.dispose();
+    _surnameFocus.dispose();
+    _emailFocus.dispose();
+    _passwordFocus.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,67 +84,115 @@ class _RegisterFormState extends State<RegisterForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(height: 50.0),
-            Text('СОЗДАТЬ АККАУНТ',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 25,
-              ),
-            ),
-            SizedBox(height: 50.0),
-            buildText(_nameController, 'Имя'),
-            buildText(_surnameController, 'Фамилия'),
-            Align(
-              alignment: Alignment.centerLeft,
-              child:
-              Text(
-                'Пол',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
+            Expanded(
+              // Используем Expanded для растяжения SingleChildScrollView
+              child: SingleChildScrollView(
+                // Определяем область прокрутки
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(height: 15.0),
+                    buildText(_nameController, 'Имя', focusNode: _nameFocus),
+                    SizedBox(height: 30.0),
+                    buildText(_surnameController, 'Фамилия', focusNode: _surnameFocus),
+                    SizedBox(height: 32.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        BuildCustomButton(
+                          buttonText: 'Мужчина',
+                          onPressed: () {
+                            setState(() {
+                              isButton1Pressed = true;
+                            });
+                          },
+                          isPressed: isButton1Pressed,
+                        ),
+                        SizedBox(width: 10.0),
+                        BuildCustomButton(
+                          buttonText: 'Женщина',
+                          onPressed: () {
+                            setState(() {
+                              isButton1Pressed = false;
+                            });
+                          },
+                          isPressed: !isButton1Pressed,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 30.0),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isDatePickerVisible = !isDatePickerVisible;
+                        });
+                      },
+                      child: Row(
+                        children: [
+                          Text(
+                            "Дата рождения",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                          Expanded(
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Text(
+                                '$_selectedDay/$_selectedMonth/$_selectedYear',
+                                style: TextStyle(fontSize: 20, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 2.0),
+                    Container(
+                      height: 1.0,
+                      color: Colors.white,
+                    ),
+                    Visibility(
+                      visible: !isKeyboardVisible(context) && isDatePickerVisible,
+                      child: SizedBox(
+                        height: 166,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: DatePickerDemo(
+                            initialValueDay: _selectedDay,
+                            initialValueMonth: _selectedMonth,
+                            initialValueYear: _selectedYear,
+                            maxYear: DateTime.now().year,
+                            onDateChanged: (day, month, year) {
+                              setState(() {
+                                _selectedDay = day;
+                                _selectedMonth = month;
+                                _selectedYear = year;
+                              });
+                            },
+                            backgroundColor: Color.fromRGBO(27, 27, 27, 1), // Цвет фона
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 30.0),
+                    buildText(_emailController, 'Почта', focusNode: _emailFocus),
+                    SizedBox(height: 30.0),
+                    buildText(_passwordController, 'Пароль', focusNode: _passwordFocus),
+                    SizedBox(height: 3.0),
+                  ],
                 ),
               ),
             ),
-            SizedBox(height: 2.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-
-                BuildCustomButton(
-                  buttonText: 'Мужчина',
-                  onPressed: () {
-                    setState(() {
-                      isButton1Pressed = true;
-                    });
-                  },
-                  isPressed: isButton1Pressed,
-                ),
-                // Вторая кнопка
-                SizedBox(width: 10.0),
-                BuildCustomButton(
-                  buttonText: 'Женщина',
-                  onPressed: () {
-                    setState(() {
-                      isButton1Pressed = false;
-                    });
-                  },
-                  isPressed: !isButton1Pressed,
-                ),
-              ],
-            ),
-            SizedBox(height: 2.0),
-            buildText(_emailController, 'Email'),
-            buildText(_passwordController, 'Пароль'),
-            SizedBox(height: 30.0),
-            Text('СЕГОДНЯ',
+            Text(
+              'СЕГОДНЯ',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 25,
               ),
             ),
-            SizedBox(height: 15.0),
-            Text('тот самый день',
+            SizedBox(height: 18.0),
+            Text(
+              'тот самый день',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
@@ -107,135 +203,116 @@ class _RegisterFormState extends State<RegisterForm> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
-                fixedSize: Size(100, 55)
+                fixedSize: Size(100, 55),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero,
+                ),
               ),
               onPressed: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => ProfilePage(),
                   ),
                 );
-                // if (_formKey.currentState != null && _formKey.currentState!.validate()) {
-                //   // Отправить данные регистрации
-                //   String name = _nameController.text;
-                //   String surname = _surnameController.text;
-                //   String email = _emailController.text;
-                //   String password = _passwordController.text;
-                //   if (name.trim().isEmpty || surname.trim().isEmpty || email.trim().isEmpty || password.trim().isEmpty) {
-                //     // Если какое-то поле не заполнено, выдаем сообщение и не отправляем форму
-                //     ScaffoldMessenger.of(context).showSnackBar(
-                //       SnackBar(content: Text('Пожалуйста заполните все поля!')),
-                //     );
-                //   } else {
-                //     // Здесь вы можете выполнить логику регистрации
-                //     // Например, отправить запрос на сервер или выполнить локальное сохранение
-                //     // после чего перейти на другой экран
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //         builder: (context) => RegistrationSuccessScreen(),
-                //       ),
-                //     );
-                //   }
-                // }
               },
-              child: Text('Ебашить',
+              child: Text(
+                'ПРОДОЛЖИТЬ',
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 23,
                 ),
               ),
             ),
+            SizedBox(height: 10,),
+            Row(
+              children: [
+                Text('Регистрируясь, ты соглашаешься с Правилами и условиями и\nподтверждаешь,что ты прочитал(-а) и принимаешь Политику\nконфиденциальности',
+                  softWrap: true,
+                  style: TextStyle(
+                    color: Colors.white60,
+                    fontSize: 11
+                  ),
+                ),
+                SizedBox(height: 30,)
+              ],
+            )
           ],
         ),
       ),
     );
   }
-}
 
-class RegistrationSuccessScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Registration Success'),
-      ),
-      body: Center(
-        child: Text('Registration Successful!'),
+  bool isKeyboardVisible(BuildContext context) {
+    final viewInsets = MediaQuery.of(context).viewInsets;
+    return viewInsets.bottom > 0;
+  }
+
+  Widget buildText(TextEditingController controller, String label, {FocusNode? focusNode}) {
+    return Column(
+        children:<Widget>[
+          SizedBox(height: 2.0),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.white,
+                width: 2,
+              ),
+              color: Colors.transparent,
+            ),
+            child: TextFormField(
+              controller: controller,
+              focusNode: focusNode,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20
+              ),
+              decoration: InputDecoration(
+                labelText: label,
+                labelStyle: TextStyle(
+                    color: Colors.white,
+                    backgroundColor: Color.fromRGBO(27, 27, 27, 1)
+                ),
+                contentPadding: EdgeInsets.fromLTRB(12, 8, 12, 8),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                ),
+              ),
+            ),
+          ),
+        ]
+    );
+  }
+
+  Widget BuildCustomButton({
+    required String buttonText,
+    required VoidCallback onPressed,
+    required bool isPressed,
+  }) {
+    return InkWell(
+      onTap: onPressed,
+      child: Container(
+        padding: EdgeInsets.all(11),
+        decoration: BoxDecoration(
+          color: Color.fromRGBO(27, 27, 27, 1),
+          border: Border.all(
+            color: isPressed ? Colors.white : Colors.white24,
+            width: 2.0,
+          ),
+          //color: isPressed ? Colors.green : Colors.grey,
+        ),
+        child: SizedBox(
+          width: 133,
+          child: Center(
+            child: Text(
+              buttonText,
+              style: TextStyle(
+                color: isPressed ? Colors.white : Colors.white24,
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
-}
-
-Widget buildText(TextEditingController controller, String label) {
-  return Column(
-    children:<Widget>
-    [
-      Align(
-        alignment: Alignment.centerLeft,
-        child:
-        Text(
-          label,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-          ),
-        ),
-
-      ),
-      SizedBox(height: 2.0),
-      Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.white,
-            width: 2,
-          ),
-          color: Color.fromRGBO(33, 33, 33, 1),
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child:
-        TextFormField(
-          controller: controller,
-          style: TextStyle(
-            color: Colors.white
-          ),
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.fromLTRB(12, 1, 1, 1), // Подгоняем значения отступов
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5.0),
-            ),
-          ),
-        ),
-      ),
-    ]
-  );
-}
-Widget BuildCustomButton({
-  required String buttonText,
-  required VoidCallback onPressed,
-  required bool isPressed,
-}) {
-  return InkWell(
-    onTap: onPressed,
-    child: Container(
-
-      padding: EdgeInsets.all(11),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: isPressed ? Colors.green : Colors.grey, // Изменяем цвет кнопки в зависимости от состояния
-      ),
-      child: SizedBox(
-        width: 136,
-        child: Center(
-          child: Text(
-            buttonText,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-            ),
-          ),
-        ),
-      )
-    ),
-  );
 }
