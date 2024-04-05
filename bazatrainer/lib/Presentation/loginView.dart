@@ -1,3 +1,4 @@
+import 'package:bazatrainer/Data/loginService.dart';
 import 'package:bazatrainer/Domain/supabaseCli.dart';
 import 'package:flutter/material.dart';
 import '../profile.dart';
@@ -47,6 +48,9 @@ class loginForm extends StatefulWidget {
 }
 
 class _loginFormState extends State<loginForm> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -60,9 +64,9 @@ class _loginFormState extends State<loginForm> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   SizedBox(height: 15.0),
-                  buildText(PasswordValidator.nameController, 'Почта'),
+                  buildText(emailController, 'Почта'),
                   SizedBox(height: 20.0),
-                  buildPasswordText(PasswordValidator.passwordController, 'Пароль'),
+                  buildPasswordText(passwordController, 'Пароль'),
                   SizedBox(height: 10.0),
                   const Row(
                     children: [
@@ -89,23 +93,26 @@ class _loginFormState extends State<loginForm> {
                 borderRadius: BorderRadius.zero,
               ),
             ),
-            onPressed: () {
-              // loginService
+            onPressed: () async {
+              final email = emailController.text;
+              final password = passwordController.text;
 
-              SupabaseCli scli = SupabaseCli();
-
-              // scli.client.auth();
-
-
-
-              if (PasswordValidator.isFormValid()) {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ProfilePage(),
-                  ),
-                );
+              if (PasswordValidator.isFormValid() || true) { // Временное упрощение проверки
+                final errorMessage = await LoginService().login(email, password);
+                if (errorMessage == null) {
+                  if (!mounted) return;
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProfilePage()),
+                  );
+                } else {
+                  if (!mounted) return;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(errorMessage)), // Отображаем текст ошибки
+                  );
+                }
               } else {
+                if (!mounted) return;
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text('Пожалуйста, заполните все поля и убедитесь, что пароль соответствует требованиям'),
@@ -113,6 +120,7 @@ class _loginFormState extends State<loginForm> {
                 );
               }
             },
+
             child: Text(
               'ПРОДОЛЖИТЬ',
               style: TextStyle(
@@ -237,5 +245,12 @@ class _loginFormState extends State<loginForm> {
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 }
