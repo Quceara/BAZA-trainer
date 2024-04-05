@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'registration.dart';
-import 'input.dart';
+import 'Presentation/loginView.dart';
 
 void main() {
   runApp(MyApp());
@@ -66,7 +66,7 @@ class FirstLaunchBuild extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => inputPage(),
+                        builder: (context) => loginView(),
                       ),
                     );
                   },

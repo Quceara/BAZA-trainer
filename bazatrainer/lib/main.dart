@@ -3,11 +3,12 @@ import 'package:flutter/services.dart';
 import 'registration.dart';
 import 'first_launch.dart';
 import 'profile.dart';
-import 'input.dart';
+import 'Presentation/loginView.dart';
+import 'Domain/supabaseCli.dart';
 
 void main() {
+  SupabaseCli();
   runApp(BazaTrainerApp());
-
 }
 
 class BazaTrainerApp extends StatelessWidget {

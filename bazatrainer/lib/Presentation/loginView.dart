@@ -1,9 +1,10 @@
+import 'package:bazatrainer/Domain/supabaseCli.dart';
 import 'package:flutter/material.dart';
-import 'profile.dart';
-import 'first_launch.dart';
-import 'password_validator.dart'; // Импортируем файл с регулярными выражениями
+import '../profile.dart';
+import '../first_launch.dart';
+import '../Domain/password_validator.dart'; // Импортируем файл с регулярными выражениями
 
-class inputPage extends StatelessWidget {
+class loginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,18 +35,18 @@ class inputPage extends StatelessWidget {
       ),
       body: Container(
         color: Color.fromRGBO(27, 27, 27, 1), // Серый фон
-        child: inputForm(),
+        child: loginForm(),
       ),
     );
   }
 }
 
-class inputForm extends StatefulWidget {
+class loginForm extends StatefulWidget {
   @override
-  _inputFormState createState() => _inputFormState();
+  _loginFormState createState() => _loginFormState();
 }
 
-class _inputFormState extends State<inputForm> {
+class _loginFormState extends State<loginForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -63,7 +64,7 @@ class _inputFormState extends State<inputForm> {
                   SizedBox(height: 20.0),
                   buildPasswordText(PasswordValidator.passwordController, 'Пароль'),
                   SizedBox(height: 10.0),
-                  Row(
+                  const Row(
                     children: [
                       Text('Минимум 12 знаков, включая 1 строчную и заглавную букву,\n1 спец-символ и 1 цифру',
                         softWrap: true,
@@ -89,6 +90,14 @@ class _inputFormState extends State<inputForm> {
               ),
             ),
             onPressed: () {
+              // loginService
+
+              SupabaseCli scli = SupabaseCli();
+
+              // scli.client.auth();
+
+
+
               if (PasswordValidator.isFormValid()) {
                 Navigator.pushReplacement(
                   context,
