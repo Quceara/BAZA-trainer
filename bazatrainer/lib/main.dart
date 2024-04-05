@@ -18,7 +18,7 @@ class BazaTrainerApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: first_launch_build(),
+      home: FirstLaunchBuild(),
     );
   }
 }

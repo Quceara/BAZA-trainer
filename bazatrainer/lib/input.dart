@@ -26,7 +26,7 @@ class inputPage extends StatelessWidget {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => first_launch_build(),
+                builder: (context) => FirstLaunchBuild(),
               ),
             );
           },

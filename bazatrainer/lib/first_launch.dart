@@ -14,12 +14,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: first_launch_build(),
+      home: FirstLaunchBuild(),
     );
   }
 }
 
-class first_launch_build extends StatelessWidget {
+class FirstLaunchBuild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +28,7 @@ class first_launch_build extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/pictures/Geraklit.png'), // Замените на свое фото
+                image: AssetImage('assets/pictures/Geraklit.png'), // Замените на своё фото
                 fit: BoxFit.fill,
               ),
             ),
@@ -40,7 +40,6 @@ class first_launch_build extends StatelessWidget {
                 // Фото заместо фона
                 // Для кнопки "НАЧАТЬ"
                 ElevatedButton(
-
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -49,14 +48,15 @@ class first_launch_build extends StatelessWidget {
                       ),
                     );
                   },
-                  child: Text('НАЧАТЬ',
+                  child: Text(
+                    'НАЧАТЬ',
                     style: TextStyle(
-                        fontSize: 27
+                      fontSize: 27,
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.black,
-                      fixedSize: Size(300, 50)
+                    backgroundColor: Colors.black, // Цвет кнопки
+                    fixedSize: Size(300, 50),
                   ),
                 ),
                 SizedBox(height: 20), // Пространство между кнопкой и текстом
@@ -73,13 +73,13 @@ class first_launch_build extends StatelessWidget {
                   child: Text(
                     'Уже есть аккаунт?',
                     style: TextStyle(
-                        color: Colors.white,
-                        decoration: TextDecoration.underline,
-                        fontSize: 18.0
+                      color: Colors.white,
+                      decoration: TextDecoration.underline,
+                      fontSize: 18.0,
                     ),
                   ),
                 ),
-                SizedBox( height: 80,)
+                SizedBox(height: 80),
               ],
             ),
           ),

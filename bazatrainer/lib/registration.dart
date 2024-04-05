@@ -1,4 +1,4 @@
-import 'package:bazatrainer/first_launch.dart';
+import 'first_launch.dart';
 import 'package:flutter/material.dart';
 import 'profile.dart';
 import 'calendar.dart';
@@ -26,7 +26,7 @@ class RegistrationPage extends StatelessWidget {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => first_launch_build(),
+                builder: (context) => FirstLaunchBuild(),
               ),
             );
           },
