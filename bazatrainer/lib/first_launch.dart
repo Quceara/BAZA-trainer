@@ -2,23 +2,6 @@ import 'package:flutter/material.dart';
 import 'registration.dart';
 import 'input.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: FirstLaunchBuild(),
-    );
-  }
-}
-
 class FirstLaunchBuild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -52,6 +35,7 @@ class FirstLaunchBuild extends StatelessWidget {
                     'НАЧАТЬ',
                     style: TextStyle(
                       fontSize: 27,
+                      color: Colors.white
                     ),
                   ),
                   style: ElevatedButton.styleFrom(

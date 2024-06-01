@@ -177,11 +177,12 @@ class _RegisterFormState extends State<RegisterForm> {
                     buildText(_emailController, 'Почта', focusNode: _emailFocus),
                     SizedBox(height: 30.0),
                     buildText(_passwordController, 'Пароль', focusNode: _passwordFocus),
-                    SizedBox(height: 3.0),
+
                   ],
                 ),
               ),
             ),
+            SizedBox(height: 3.0),
             Text(
               'СЕГОДНЯ',
               textAlign: TextAlign.center,
@@ -220,13 +221,14 @@ class _RegisterFormState extends State<RegisterForm> {
                 'ПРОДОЛЖИТЬ',
                 style: TextStyle(
                   fontSize: 23,
+                  color: Colors.white
                 ),
               ),
             ),
             SizedBox(height: 10,),
             Row(
               children: [
-                Text('Регистрируясь, ты соглашаешься с Правилами и условиями и\nподтверждаешь,что ты прочитал(-а) и принимаешь Политику\nконфиденциальности',
+                Text('Регистрируясь, ты соглашаешься с Правилами и\nусловиями и подтверждаешь,что ты прочитал(-а) и\nпринимаешь политику конфиденциальности',
                   softWrap: true,
                   style: TextStyle(
                     color: Colors.white60,
