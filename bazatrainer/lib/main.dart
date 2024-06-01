@@ -3,11 +3,14 @@ import 'package:flutter/services.dart';
 import 'registration.dart';
 import 'first_launch.dart';
 import 'profile.dart';
-import 'Presentation/loginView.dart';
-import 'Domain/supabaseCli.dart';
+import 'input.dart';
+import 'glavnaya.dart';
+import 'training.dart';
+import 'diary.dart';
+import 'eating.dart';
+import 'system.dart';
 
 void main() {
-  SupabaseCli();
   runApp(BazaTrainerApp());
 }
 
@@ -15,11 +18,15 @@ class BazaTrainerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Registration App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: FirstLaunchBuild(),
+      home: ProfilePage(),
+      initialRoute: ProfilePage.routeName,
+      routes: {
+        ProfilePage.routeName: (context) => ProfilePage(),
+        TrainingPage.routeName: (context) => TrainingPage(),
+        DiaryPage.routeName: (context) => DiaryPage(),
+        EatingPage.routeName: (context) => EatingPage(),
+        SystemPage.routeName: (context) => SystemPage(),
+      },
     );
   }
 }
