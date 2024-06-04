@@ -1,9 +1,15 @@
-import 'first_launch.dart';
-import 'package:flutter/material.dart';
-import 'profile.dart';
-import 'calendar.dart';
+import 'package:bazatrainer/Presentation/loginView.dart';
 
-class RegistrationPage extends StatelessWidget {
+import '../first_launch.dart';
+import 'package:flutter/material.dart';
+import 'profileView.dart';
+import '../calendar.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:bazatrainer/Domain/sessionManager.dart';
+import 'package:bazatrainer/Domain/supabaseCli.dart';
+import 'package:bazatrainer/Data/regService.dart'; // Импортируем новый сервис
+
+class regView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +52,6 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
-
   final _formKey = GlobalKey<FormState>();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
@@ -72,6 +77,38 @@ class _RegisterFormState extends State<RegisterForm> {
     _emailFocus.dispose();
     _passwordFocus.dispose();
     super.dispose();
+  }
+
+  Future<void> _register() async {
+    final email = _emailController.text;
+    final password = _passwordController.text;
+    final name = _nameController.text;
+    final surname = _surnameController.text;
+    final gender = isButton1Pressed ? 'male' : 'female';
+    final birthdate = '$_selectedYear-$_selectedMonth-$_selectedDay';
+
+    final errorMessage = await RegService().register(
+      email: email,
+      password: password,
+      firstName: name,
+      secondName: surname,
+      gender: gender,
+      birthdate: birthdate,
+    );
+
+    if (errorMessage == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Не забудьте подтвердить почту!")),
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => loginView()),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(errorMessage)),
+      );
+    }
   }
 
   @override
@@ -177,7 +214,6 @@ class _RegisterFormState extends State<RegisterForm> {
                     buildText(_emailController, 'Почта', focusNode: _emailFocus),
                     SizedBox(height: 30.0),
                     buildText(_passwordController, 'Пароль', focusNode: _passwordFocus),
-
                   ],
                 ),
               ),
@@ -209,19 +245,12 @@ class _RegisterFormState extends State<RegisterForm> {
                   borderRadius: BorderRadius.zero,
                 ),
               ),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ProfilePage(),
-                  ),
-                );
-              },
+              onPressed: _register,
               child: Text(
                 'ПРОДОЛЖИТЬ',
                 style: TextStyle(
-                  fontSize: 23,
-                  color: Colors.white
+                    fontSize: 23,
+                    color: Colors.white
                 ),
               ),
             ),
@@ -231,8 +260,8 @@ class _RegisterFormState extends State<RegisterForm> {
                 Text('Регистрируясь, ты соглашаешься с Правилами и\nусловиями и подтверждаешь,что ты прочитал(-а) и\nпринимаешь политику конфиденциальности',
                   softWrap: true,
                   style: TextStyle(
-                    color: Colors.white60,
-                    fontSize: 11
+                      color: Colors.white60,
+                      fontSize: 11
                   ),
                 ),
                 SizedBox(height: 30,)

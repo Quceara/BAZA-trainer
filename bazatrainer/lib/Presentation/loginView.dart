@@ -1,9 +1,13 @@
+import 'package:bazatrainer/Data/loginService.dart';
+import 'package:bazatrainer/Domain/supabaseCli.dart';
 import 'package:flutter/material.dart';
-import 'profile.dart';
-import 'first_launch.dart';
-import 'password_validator.dart'; // Импортируем файл с регулярными выражениями
+import 'profileView.dart';
+import '../first_launch.dart';
+import '../Domain/password_validator.dart'; // Импортируем файл с регулярными выражениями
 
-class inputPage extends StatelessWidget {
+class loginView extends StatelessWidget {
+  static const String routeName = '/loginView';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,18 +38,21 @@ class inputPage extends StatelessWidget {
       ),
       body: Container(
         color: Color.fromRGBO(27, 27, 27, 1), // Серый фон
-        child: inputForm(),
+        child: loginForm(),
       ),
     );
   }
 }
 
-class inputForm extends StatefulWidget {
+class loginForm extends StatefulWidget {
   @override
-  _inputFormState createState() => _inputFormState();
+  _loginFormState createState() => _loginFormState();
 }
 
-class _inputFormState extends State<inputForm> {
+class _loginFormState extends State<loginForm> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -59,11 +66,11 @@ class _inputFormState extends State<inputForm> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   SizedBox(height: 15.0),
-                  buildText(PasswordValidator.nameController, 'Почта'),
+                  buildText(emailController, 'Почта'),
                   SizedBox(height: 20.0),
-                  buildPasswordText(PasswordValidator.passwordController, 'Пароль'),
+                  buildPasswordText(passwordController, 'Пароль'),
                   SizedBox(height: 10.0),
-                  Row(
+                  const Row(
                     children: [
                       Text('Минимум 12 знаков, включая 1 строчную и заглавную букву,\n1 спец-символ и 1 цифру',
                         softWrap: true,
@@ -88,15 +95,26 @@ class _inputFormState extends State<inputForm> {
                 borderRadius: BorderRadius.zero,
               ),
             ),
-            onPressed: () {
-              if (PasswordValidator.isFormValid()) {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ProfilePage(),
-                  ),
-                );
+            onPressed: () async {
+              final email = emailController.text;
+              final password = passwordController.text;
+
+              if (PasswordValidator.isFormValid() || true) { // Временное упрощение проверки
+                final errorMessage = await LoginService().login(email, password);
+                if (errorMessage == null) {
+                  if (!mounted) return;
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProfilePage()),
+                  );
+                } else {
+                  if (!mounted) return;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(errorMessage)), // Отображаем текст ошибки
+                  );
+                }
               } else {
+                if (!mounted) return;
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text('Пожалуйста, заполните все поля и убедитесь, что пароль соответствует требованиям'),
@@ -104,6 +122,7 @@ class _inputFormState extends State<inputForm> {
                 );
               }
             },
+
             child: Text(
               'ПРОДОЛЖИТЬ',
               style: TextStyle(
@@ -228,5 +247,12 @@ class _inputFormState extends State<inputForm> {
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 }

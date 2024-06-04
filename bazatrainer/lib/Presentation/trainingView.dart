@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'bottom_menu.dart';
 
 class TrainingPage extends StatelessWidget {
-  static const String routeName = '/training';
+  static const String routeName = '/trainingView';
 
   @override
   Widget build(BuildContext context) {

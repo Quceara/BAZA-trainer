@@ -1,10 +1,10 @@
-import 'package:bazatrainer/profile.dart';
+import 'package:bazatrainer/Presentation/profileView.dart';
 import 'package:flutter/material.dart';
-import 'glavnaya.dart';
-import 'training.dart';
-import 'diary.dart';
-import 'eating.dart';
-import 'system.dart';
+import '../glavnaya.dart';
+import 'trainingView.dart';
+import 'diaryView.dart';
+import 'eatingView.dart';
+import 'systemView.dart';
 
 class BottomMenu extends StatefulWidget {
   final int currentIndex;

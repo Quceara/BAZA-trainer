@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'registration.dart';
-import 'input.dart';
+import 'Presentation/regView.dart';
+import 'Presentation/loginView.dart';
 
 class FirstLaunchBuild extends StatelessWidget {
   @override
@@ -27,7 +27,7 @@ class FirstLaunchBuild extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => RegistrationPage(),
+                        builder: (context) => regView(),
                       ),
                     );
                   },
@@ -50,7 +50,7 @@ class FirstLaunchBuild extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => inputPage(),
+                        builder: (context) => loginView(),
                       ),
                     );
                   },

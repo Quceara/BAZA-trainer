@@ -2,8 +2,8 @@ import 'package:bazatrainer/menu.dart';
 import 'package:flutter/material.dart';
 import 'bottom_menu.dart';
 
-class SystemPage extends StatelessWidget {
-  static const String routeName = '/system';
+class EatingPage extends StatelessWidget {
+  static const String routeName = '/eatingView';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,7 +12,7 @@ class SystemPage extends StatelessWidget {
         backgroundColor: Color.fromRGBO(14, 14, 14, 1),
         title: Center(
           child: Text(
-            'Система',
+            'Питание',
             style: TextStyle(color: Colors.white, fontSize: 28),
           ),
         ),
@@ -57,7 +57,7 @@ class SystemPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: BottomMenu(
-                currentIndex: 4, // Устанавливаем текущий индекс для "Glavnaya"
+                currentIndex: 3,
               ),
             ),
           ),
