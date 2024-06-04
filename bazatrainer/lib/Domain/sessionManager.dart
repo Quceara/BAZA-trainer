@@ -23,9 +23,6 @@ class SessionManager {
 
   bool get isAuthenticated => _user != null;
 
-  // Возможные дополнительные методы для работы с сессией
-  // ...
-
   Future<void> signOut() async {
     await Supabase.instance.client.auth.signOut();
     _session = null;

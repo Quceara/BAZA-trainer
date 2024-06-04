@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'menu.dart';
+import '../menu.dart';
 import 'bottom_menu.dart';
 
 class ProfilePage extends StatefulWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  static const String routeName = '/profile';
+  static const String routeName = '/profileView';
 
   @override
   _ProfilePageState createState() => _ProfilePageState();

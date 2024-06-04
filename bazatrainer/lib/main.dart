@@ -1,28 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'registration.dart';
+import 'Domain/supabaseCli.dart';
+import 'Presentation/regView.dart';
 import 'first_launch.dart';
-import 'profile.dart';
-import 'input.dart';
+import 'Presentation/profileView.dart';
 import 'glavnaya.dart';
-import 'training.dart';
-import 'diary.dart';
-import 'eating.dart';
-import 'system.dart';
+import 'Presentation/loginView.dart';
+import 'Presentation/trainingView.dart';
+import 'Presentation/diaryView.dart';
+import 'Presentation/eatingView.dart';
+import 'Presentation/systemView.dart';
 
 void main() {
   runApp(BazaTrainerApp());
 }
 
 class BazaTrainerApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+    // SupabaseCli();
     return MaterialApp(
-      home: ProfilePage(),
-      initialRoute: ProfilePage.routeName,
+      home: loginView(),
+      initialRoute: "/",
       routes: {
-        ProfilePage.routeName: (context) => ProfilePage(),
+        // loginView.routeName: (context) => loginView(),
         TrainingPage.routeName: (context) => TrainingPage(),
+        ProfilePage.routeName: (context) => ProfilePage(),
         DiaryPage.routeName: (context) => DiaryPage(),
         EatingPage.routeName: (context) => EatingPage(),
         SystemPage.routeName: (context) => SystemPage(),

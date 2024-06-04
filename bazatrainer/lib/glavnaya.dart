@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'menu.dart';
-import 'bottom_menu.dart';
+import 'Presentation/bottom_menu.dart';
 
 class Glavnaya extends StatelessWidget {
   static const String routeName = '/glavnaya';

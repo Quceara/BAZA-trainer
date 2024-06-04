@@ -1,11 +1,9 @@
 import 'package:bazatrainer/menu.dart';
 import 'package:flutter/material.dart';
 import 'bottom_menu.dart';
-import 'note.dart';
 
-class DiaryPage extends StatelessWidget {
-  static const String routeName = '/diary';
-
+class SystemPage extends StatelessWidget {
+  static const String routeName = '/systemView';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +12,7 @@ class DiaryPage extends StatelessWidget {
         backgroundColor: Color.fromRGBO(14, 14, 14, 1),
         title: Center(
           child: Text(
-            'Дневники',
+            'Система',
             style: TextStyle(color: Colors.white, fontSize: 28),
           ),
         ),
@@ -45,6 +43,9 @@ class DiaryPage extends StatelessWidget {
       endDrawer: CustomNotification(),
       body: Stack(
         children: [
+          Positioned.fill(
+            child: Image.asset('assets/pictures/Geraklit.png', fit: BoxFit.cover),
+          ),
           Positioned(
             left: 0,
             right: 0,
@@ -56,16 +57,12 @@ class DiaryPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: BottomMenu(
-                currentIndex: 2,
+                currentIndex: 4, // Устанавливаем текущий индекс для "Glavnaya"
               ),
             ),
           ),
-          Positioned.fill(
-            child: EntryFormWidget(), // Используем EntryFormWidget здесь
-          ),
         ],
       ),
-      resizeToAvoidBottomInset: false,
     );
   }
 }

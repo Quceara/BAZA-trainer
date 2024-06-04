@@ -15,6 +15,7 @@ class LoginService {
       return null;
 
     } catch (e) {
+      print(e);
       // Если произошло исключение типа AuthException, выводим его сообщение
       if (e is AuthException) {
         return "Неверные данные для входа"; // Здесь получаем сообщение об ошибке

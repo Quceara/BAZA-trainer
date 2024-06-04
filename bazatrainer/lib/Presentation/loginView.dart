@@ -1,11 +1,13 @@
 import 'package:bazatrainer/Data/loginService.dart';
 import 'package:bazatrainer/Domain/supabaseCli.dart';
 import 'package:flutter/material.dart';
-import '../profile.dart';
+import 'profileView.dart';
 import '../first_launch.dart';
 import '../Domain/password_validator.dart'; // Импортируем файл с регулярными выражениями
 
 class loginView extends StatelessWidget {
+  static const String routeName = '/loginView';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

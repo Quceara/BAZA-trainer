@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 import 'entry_widgets.dart';
-import 'bottom_menu.dart';
+import 'Presentation/bottom_menu.dart';
 
 class EntryFormWidget extends StatefulWidget {
   static const String routeName = '/entryForm';
