@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../Data/userService.dart';
+import '../Domain/supabaseCli.dart';
 import '../menu.dart';
+import '../Domain/sessionManager.dart';
 import 'bottom_menu.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -12,6 +15,28 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  late SessionManager _sessionManager;
+  late UserService _userService;
+  Map<String, dynamic>? _userData;
+
+  @override
+  void initState() {
+    super.initState();
+    _sessionManager = SessionManager();
+    _userService = UserService(SupabaseCli().client);
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    if (_sessionManager.user != null) {
+      final userId = _sessionManager.user!.id;
+      final userData = await _userService.getUserData(userId);
+      setState(() {
+        _userData = userData;
+      });
+    }
+  }
+
   int _selectedIndex = 0;
 
   List<String> imageUrls = [
@@ -29,6 +54,8 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _buildMenuItem(int index, String title) {
+    print(_sessionManager.session);
+    print(_sessionManager.isAuthenticated);
     return GestureDetector(
       onTap: () {
         _selectMenu(index);
@@ -43,14 +70,19 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
+    print("_userData");
+    print("_userData");
+    print("_userData");
+    print(_userData);
     return Scaffold(
       key: widget._scaffoldKey,
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
         title: Text(
-          'Серега Пердун',
+          _userData != null ? '${_userData!['first_name']} ${_userData!['second_name']}' : 'Загрузка...',
           style: TextStyle(
             color: Colors.white,
           ),
@@ -180,8 +212,10 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               SizedBox(height: 5),
                               Text(
-                                '123',
-                                style: TextStyle(color: Colors.white),
+                                _userData != null ? '${_userData!['profile'][0]['subscribers']}' : '?',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
                               ),
                             ],
                           ),
@@ -193,8 +227,10 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               SizedBox(height: 5),
                               Text(
-                                '456',
-                                style: TextStyle(color: Colors.white),
+                                _userData != null ? '${_userData!['profile'][0]['subscribe']}' : '?',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
                               ),
                             ],
                           ),
