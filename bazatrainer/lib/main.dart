@@ -16,13 +16,12 @@ import 'Presentation/systemView.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Supabase.initialize(
-    url: 'https://fpttqwzlyoaqwyxjpxlj.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZwdHRxd3pseW9hcXd5eGpweGxqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTIzMzExMjAsImV4cCI6MjAyNzkwNzEyMH0.tgHK9DgkQv7x-zpZfYDHaa_78S60Bfh22GyXQiP0qfY',
-  );
+  // await Supabase.initialize(
+  //   url: 'https://fpttqwzlyoaqwyxjpxlj.supabase.co',
+  //   anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZwdHRxd3pseW9hcXd5eGpweGxqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTIzMzExMjAsImV4cCI6MjAyNzkwNzEyMH0.tgHK9DgkQv7x-zpZfYDHaa_78S60Bfh22GyXQiP0qfY',
+  // );
 
   await SessionManager().restoreSession();
-  print(111);
   runApp(BazaTrainerApp());
 }
 
