@@ -1,7 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../Data/storageService.dart';
+import '../Data/userService.dart';
+import '../Domain/supabaseCli.dart';
 import '../menu.dart';
+import '../Domain/sessionManager.dart';
 import 'bottom_menu.dart';
+
 
 class ProfilePage extends StatefulWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -12,13 +22,52 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  late SessionManager _sessionManager;
+  late UserService _userService;
+  late StorageService _storageService;
+  List<dynamic>? _userData;
+  Map<String, dynamic>? _userDataCommon;
+  List<Map<String, dynamic>>? _userDataAvatars;
+  List<String> imageUrls = [ 'https://i2.wp.com/vdostavka.ru/wp-content/uploads/2019/05/no-avatar.png'];
+
+  @override
+  void initState() {
+    super.initState();
+    _sessionManager = SessionManager();
+    _userService = UserService(SupabaseCli().client);
+    _storageService = StorageService();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    if (_sessionManager.user != null) {
+      final userId = _sessionManager.user!.id;
+      final userData = await _userService.getUserData(userId);
+      setState(() {
+        _userData = userData;
+        _userDataCommon = userData?[0];
+        _userDataAvatars = userData?[1];
+
+        if (_userDataAvatars != null && _userDataAvatars!.isNotEmpty) {
+          imageUrls = _userDataAvatars!
+              .map<String>((avatar) => avatar['url'] as String)
+              .toList();
+          imageUrls = imageUrls.reversed.toList();
+        } else {
+          imageUrls = [
+            'https://i2.wp.com/vdostavka.ru/wp-content/uploads/2019/05/no-avatar.png'
+          ];
+        }
+
+        print(_userDataAvatars != null && _userDataAvatars!.isNotEmpty);
+        print(_userDataAvatars);
+      });
+    }
+  }
+
   int _selectedIndex = 0;
 
-  List<String> imageUrls = [
-    'https://sun9-18.userapi.com/impg/PmUbRp_4K_dCdHcIxSR378HEcx7vlv0yCYn9mg/CbDWmeSOl48.jpg?size=1098x830&quality=96&sign=1c2fa5d6c3ddb03a16575b41d9ddead7&type=album1.jpg',
-    'https://sun9-3.userapi.com/impg/yIbzQNqbvdz2fCynqKGQDbnZusysN9bQC1_4oA/9E7KeKG5mXE.jpg?size=1087x1090&quality=95&sign=48ba232ee00c2ff17fe8059183adc7d2&type=album2.jpg',
-    'https://sun9-60.userapi.com/impg/QRhnGz7N0d4akbCjyGiFHoZggWC516cfEXYS0Q/_ARFm-_6QKE.jpg?size=687x914&quality=96&sign=26914685dc4942d016e99a38d2bad96c&type=album3.jpg',
-  ];
+
 
   PageController controller = PageController();
 
@@ -29,6 +78,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _buildMenuItem(int index, String title) {
+
     return GestureDetector(
       onTap: () {
         _selectMenu(index);
@@ -43,14 +93,60 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  Future<void> _uploadAvatar(BuildContext context) async {
+    final picker = ImagePicker();
+
+    // Запрашиваем разрешение
+    if (await Permission.photos.request().isGranted) {
+      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+      try {
+        if (pickedFile != null) {
+          final file = File(pickedFile.path);
+          final fileName = '${_sessionManager.user!.id}-${file.path.split('/').last}';
+          final uploadPath = await _storageService.uploadAvatar(fileName, file);
+          if (uploadPath != null) {
+            print('Avatar uploaded to: $uploadPath');
+            // Обновляем UI, если необходимо
+            _loadUserData();
+          } else {
+            print('Failed to upload avatar');
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Failed to upload avatar'))
+            );
+          }
+        } else {
+          print('No image selected');
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('No image selected'))
+          );
+        }
+      } catch (e) {
+        print(e);
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error: $e'))
+        );
+      }
+    } else if (await Permission.photos.isPermanentlyDenied) {
+      openAppSettings();
+    } else {
+      // Выводим сообщение, если разрешение не предоставлено
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Permission not granted to access photos'))
+      );
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    print(imageUrls);
     return Scaffold(
       key: widget._scaffoldKey,
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
         title: Text(
-          'Серега Пердун',
+          _userDataCommon != null ? '${_userDataCommon!['first_name']} ${_userDataCommon!['second_name']}' : 'Загрузка...',
           style: TextStyle(
             color: Colors.white,
           ),
@@ -86,19 +182,25 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 Stack(
                   children: [
-                    Container(
-                      height: 300,
-                      child: PageView.builder(
-                        controller: controller,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Image.network(
-                            imageUrls[index % imageUrls.length],
-                            fit: BoxFit.cover,
-                          );
-                        },
-                        itemCount: imageUrls.length,
+                    GestureDetector(
+                      child: Container(
+                        height: 300,
+                        child: PageView.builder(
+                          controller: controller,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Image.network(
+                              imageUrls[index % imageUrls.length],
+                              fit: BoxFit.cover,
+                            );
+                          },
+                          itemCount: imageUrls.length,
+                        ),
+
                       ),
+                      onDoubleTap: () async {
+                        _uploadAvatar(context);
+                      },
                     ),
                     Positioned(
                       bottom: 8,
@@ -180,8 +282,10 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               SizedBox(height: 5),
                               Text(
-                                '123',
-                                style: TextStyle(color: Colors.white),
+                                _userDataCommon != null ? '${_userDataCommon!['profile'][0]['subscribers']}' : '?',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
                               ),
                             ],
                           ),
@@ -193,8 +297,10 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               SizedBox(height: 5),
                               Text(
-                                '456',
-                                style: TextStyle(color: Colors.white),
+                                _userDataCommon != null ? '${_userDataCommon!['profile'][0]['subscribe']}' : '?',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
                               ),
                             ],
                           ),
