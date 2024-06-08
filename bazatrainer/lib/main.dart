@@ -22,7 +22,7 @@ class BazaTrainerApp extends StatelessWidget {
     // SupabaseCli();
     return MaterialApp(
       home: loginView(),
-      initialRoute: "/",
+      initialRoute: "/profileView",
       routes: {
         // loginView.routeName: (context) => loginView(),
         TrainingPage.routeName: (context) => TrainingPage(),
