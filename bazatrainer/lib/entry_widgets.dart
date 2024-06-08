@@ -31,15 +31,6 @@ class EntryWidgets {
     );
   }
 
-  static Widget buildAddButton(VoidCallback onPressed) {
-    return Center(
-      child: IconButton(
-        icon: Icon(Icons.add_box, size: 50, color: Colors.white),
-        onPressed: onPressed,
-      ),
-    );
-  }
-
   static Widget buildForm(
       TextEditingController titleController,
       String selectedCategory,

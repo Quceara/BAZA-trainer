@@ -43,28 +43,27 @@ class DiaryPage extends StatelessWidget {
       ),
       drawer: CustomDrawer(),
       endDrawer: CustomNotification(),
-      body: Stack(
+      body: Column(
         children: [
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 20,
-            child: Container(
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: BottomMenu(
-                currentIndex: 2,
-              ),
-            ),
+          Expanded(
+            child: EntryFormWidget(),
           ),
-          Positioned.fill(
-            child: EntryFormWidget(), // Используем EntryFormWidget здесь
+          Container(
+            padding: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 40), // Отступы, включая отступ снизу для подъема
+            decoration: BoxDecoration(
+              color: Color.fromRGBO(27, 27, 27, 1),
+
+            ),
+            child: BottomMenu(
+              currentIndex: 2,
+            ),
           ),
         ],
       ),
+
+
+
+
       resizeToAvoidBottomInset: false,
     );
   }

@@ -18,31 +18,46 @@ abstract class AbstractEntryListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: getBackgroundColor(),
-      child: ListTile(
-        leading: entry['imagePath']!.isNotEmpty
-            ? Image.file(File(entry['imagePath']!),
-            width: 50, height: 50, fit: BoxFit.cover)
-            : null,
-        title: Text(entry['title']!,
-          style: TextStyle(
-              color: Colors.white
-          ),
+      child: IntrinsicHeight(
+        child: Row(
+          children: [
+            entry['imagePath']!.isNotEmpty
+                ? ClipRRect(
+              borderRadius: BorderRadius.circular(4.0), // Опционально: скругленные углы изображения
+              child: Image.file(
+                File(entry['imagePath']!),
+                width: 100,
+                fit: BoxFit.cover,
+              ),
+            )
+                : Container(
+              width: 100,
+              color: Colors.grey,
+            ),
+            Expanded(
+              child: ListTile(
+                contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                title: Text(
+                  entry['title']!,
+                  style: TextStyle(color: Colors.white),
+                ),
+                subtitle: Text(
+                  '${entry['category']} - ${entry['date']}\n${entry['additionalInfo']}',
+                  style: TextStyle(color: Colors.white),
+                ),
+                trailing: IconButton(
+                  icon: Icon(Icons.delete, color: Colors.red),
+                  onPressed: () {
+                    onDelete(index);
+                  },
+                ),
+                onTap: () {
+                  onTap(entry);
+                },
+              ),
+            ),
+          ],
         ),
-        subtitle: Text(
-          '${entry['category']} - ${entry['date']}\n${entry['additionalInfo']}',
-          style: TextStyle(
-            color: Colors.white
-          ),
-        ),
-        trailing: IconButton(
-          icon: Icon(Icons.delete, color: Colors.red),
-          onPressed: () {
-            onDelete(index);
-          },
-        ),
-        onTap: () {
-          onTap(entry);
-        },
       ),
     );
   }
@@ -60,7 +75,7 @@ class EntryListItemBlue extends AbstractEntryListItem {
 
   @override
   Color getBackgroundColor() {
-    return Color.fromRGBO(14, 14, 14, 1)!;
+    return Color.fromRGBO(14, 14, 14, 1);
   }
 }
 

@@ -116,10 +116,10 @@ class _EntryFormWidgetState extends State<EntryFormWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromRGBO(27, 27, 27, 1), // Изменение цвета фона страницы
-      body: Stack(
+      body: ListView(
         children: [
-          Container(
-            padding: EdgeInsets.all(10),
+          Padding(
+            padding: const EdgeInsets.all(10),
             child: Column(
               children: [
                 if (_isFormVisible)
@@ -146,51 +146,43 @@ class _EntryFormWidgetState extends State<EntryFormWidget> {
                       });
                     },
                   )),
-                Expanded(
-                  child: _isFormVisible
-                      ? Container()
-                      : EntryWidgets.buildSavedEntries(
+                if (!_isFormVisible)
+                  EntryWidgets.buildSavedEntries(
                     _savedEntries,
                     _deleteEntry,
                     context,
                   ),
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 20,
-            child: Column(
-              children: [
-                EntryWidgets.buildAddButton(() {
-                  setState(() {
-                    _isFormVisible = true;
-                  });
-                }),
-                SizedBox(height: 20), // Добавляем небольшой зазор между кнопкой и нижним меню
-                Container(
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Material(
-                    color: Colors.transparent, // Цвет материала прозрачный
-                    child: InkWell(
-                      highlightColor: Colors.transparent, // Прозрачный цвет выделения
-                      child: BottomMenu(
-                        currentIndex: 2,
-                      ), // Ваш виджет, на который вы хотите отключить анимацию нажатия
-                    ),
-                  )
-                ),
               ],
             ),
           ),
         ],
       ),
+      bottomNavigationBar: !_isFormVisible
+          ? Padding(
+        padding: const EdgeInsets.only(left: 20, right: 20,),
+        child: Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white
+                ),
+                onPressed: () {
+                  setState(() {
+                    _isFormVisible = true;
+                  });
+                },
+                child: Text('Добавить запись',
+                  style: TextStyle(
+                    color: Colors.black
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      )
+          : null,
     );
   }
 
