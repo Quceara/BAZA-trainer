@@ -34,7 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     _sessionManager = SessionManager();
-    _userService = UserService(SupabaseCli().client);
+    _userService = UserService();
     _storageService = StorageService();
     _loadUserData();
   }
@@ -42,7 +42,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> _loadUserData() async {
     if (_sessionManager.user != null) {
       final userId = _sessionManager.user!.id;
-      final userData = await _userService.getUserData(userId);
+      final userData = await _userService.getUserData();
       setState(() {
         _userData = userData;
         _userDataCommon = userData?[0];
@@ -224,7 +224,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Container(
                   color: Color.fromRGBO(15, 15, 15, 1),
                   padding: EdgeInsets.symmetric(vertical: 5.0),
-                  child: Column(
+                  child: const Column(
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
