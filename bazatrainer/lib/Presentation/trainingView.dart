@@ -1,3 +1,4 @@
+import 'package:bazatrainer/Presentation/trainingProgrView.dart';
 import 'package:bazatrainer/menu.dart';
 import 'package:flutter/material.dart';
 import 'bottom_menu.dart';
@@ -11,7 +12,7 @@ class TrainingPage extends StatelessWidget {
       appBar: AppBar(
         scrolledUnderElevation: 0,
         backgroundColor: Color.fromRGBO(14, 14, 14, 1),
-        title: Center(
+        title: const Center(
           child: Text(
             'Тренировки',
             style: TextStyle(color: Colors.white, fontSize: 28),
@@ -56,7 +57,11 @@ class TrainingPage extends StatelessWidget {
                       children: [
                         Expanded(
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).pushReplacementNamed(
+                                  TrainingProgrView.routeName
+                              );
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Color.fromRGBO(14, 14, 14, 1),
                             ),
