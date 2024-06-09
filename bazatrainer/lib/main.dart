@@ -1,10 +1,13 @@
-import 'package:bazatrainer/firstLaunch.dart';
+import 'package:bazatrainer/Presentation/exerciceView.dart';
+import 'package:bazatrainer/Presentation/trainingProgrView.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'Domain/sessionManager.dart';
 import 'Domain/supabaseCli.dart';
 import 'Presentation/regView.dart';
+import 'Presentation/trainingNewView.dart';
 import 'first_launch.dart';
 import 'Presentation/profileView.dart';
 import 'glavnaya.dart';
@@ -45,6 +48,9 @@ class BazaTrainerApp extends StatelessWidget {
         DiaryPage.routeName: (context) => DiaryPage(),
         EatingPage.routeName: (context) => EatingPage(),
         SystemPage.routeName: (context) => SystemPage(),
+        TrainingProgrView.routeName: (context) => TrainingProgrView(),
+        TrainingNewView.routeName: (context) => TrainingNewView(),
+
       },
     );
   }
