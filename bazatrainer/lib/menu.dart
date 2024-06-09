@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'images_receiving.dart';
+import 'firstLaunch.dart';
 
 class CustomNotification extends StatelessWidget {
   @override
@@ -31,22 +32,44 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
-            ),
-            child: Text(
-              'Right Drawer Header',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
+      child: Container(
+        color: Color.fromARGB(255, 27, 27, 27), // Фоновый цвет
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(27, 27, 27, 1),
+              ),
+              child: Text(
+                'Меню',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
               ),
             ),
-          ),
-        ],
+            ListTile(
+              leading: Icon(
+                Icons.exit_to_app,
+                color: Colors.white,
+              ), // Иконка "Выйти"
+              title: Text(
+                'Выйти',
+                style: TextStyle(
+                  color: Colors.white, // Цвет текста "Выйти"
+                ),
+              ),
+              onTap: () {
+                // Переход на страницу FirstLaunch()
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => FirstLaunch()),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
