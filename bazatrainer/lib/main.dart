@@ -1,5 +1,6 @@
 import 'package:bazatrainer/Presentation/exerciceView.dart';
 import 'package:bazatrainer/Presentation/trainingProgrView.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -15,6 +16,9 @@ import 'Presentation/trainingView.dart';
 import 'Presentation/diaryView.dart';
 import 'Presentation/eatingView.dart';
 import 'Presentation/systemView.dart';
+import 'tracker.dart';
+import 'InfoWidget.dart';
+import 'first_launch.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +38,8 @@ class BazaTrainerApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // SupabaseCli();
     return MaterialApp(
-      home: SessionManager().isAuthenticated ? ProfilePage() : loginView(),
+      home: ProfilePage(),
+      //home: SessionManager().isAuthenticated ? ProfilePage() : loginView(),
       initialRoute: "/",
       routes: {
         // loginView.routeName: (context) => loginView(),
