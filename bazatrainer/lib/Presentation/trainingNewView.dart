@@ -1,3 +1,4 @@
+import 'package:bazatrainer/Presentation/trainingProgrView.dart';
 import 'package:bazatrainer/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -198,12 +199,9 @@ class _TrainingNewViewState extends State<TrainingNewView> {
                                 backgroundColor: Colors.green,
                               ),
                             );
-                            // Очистка формы после успешного создания тренировки
-                            _titleController.clear();
-                            setState(() {
-                              _avatarImage = null;
-                              _selectedExercises.clear();
-                            });
+                            Navigator.of(context).pushReplacementNamed(
+                                TrainingProgrView.routeName
+                            );
                           }
                         } catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(
