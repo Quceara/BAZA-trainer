@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Domain/sessionManager.dart';
 import 'images_receiving.dart';
 import 'firstLaunch.dart';
 
@@ -65,7 +66,9 @@ class CustomDrawer extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => FirstLaunch()),
+
                 );
+                SessionManager().signOut();
               },
             ),
           ],

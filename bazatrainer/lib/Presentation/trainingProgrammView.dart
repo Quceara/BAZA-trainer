@@ -1,5 +1,6 @@
 import 'package:bazatrainer/Domain/sessionManager.dart';
 import 'package:bazatrainer/Presentation/trainingNewView.dart';
+import 'package:bazatrainer/Presentation/trainingStartView.dart';
 import 'package:flutter/material.dart';
 import 'package:bazatrainer/menu.dart';
 import '../Data/trainingService.dart';
@@ -8,14 +9,14 @@ import 'bottom_menu.dart';
 import '../note.dart';
 import 'exerciceView.dart';
 
-class TrainingProgrView extends StatefulWidget {
+class TrainingProgrammView extends StatefulWidget {
   static const String routeName = '/trainingProgrView';
 
   @override
-  _TrainingProgrViewState createState() => _TrainingProgrViewState();
+  _TrainingProgrammViewState createState() => _TrainingProgrammViewState();
 }
 
-class _TrainingProgrViewState extends State<TrainingProgrView> {
+class _TrainingProgrammViewState extends State<TrainingProgrammView> {
   int _selectedIndex = 0;
   int? _expandedItemIndex;
   late Future<List<Map<String, dynamic>>> _workoutsFuture;
@@ -179,6 +180,14 @@ class _TrainingProgrViewState extends State<TrainingProgrView> {
                     child: ElevatedButton(
                       onPressed: () {
                         print(workout);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TrainingStartView(
+                              workout: workout,
+                            ),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue, // Цвет кнопки
