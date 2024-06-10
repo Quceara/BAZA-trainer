@@ -10,12 +10,12 @@ class ImageSwiper extends StatefulWidget {
 class _ImageSwiperState extends State<ImageSwiper> {
   final List<Map<String, String>> imagesWithCaptions = [
     {
-      'image': 'assets/pictures/privet.jpg',
+      'image': 'assets/pictures/Geraklit2.jpg',
       'caption':
       'Привет, это приложение для людей которые хотят заниматься спортом и поддерживать свое тело и дух в тонусе!'
     },
     {
-      'image': 'assets/pictures/Geraklit2.jpg',
+      'image': 'assets/pictures/privet.jpg',
       'caption': 'С помощью него вы можете покорять свои личные вершины и развиваться'
     },
     {
@@ -44,11 +44,11 @@ class _ImageSwiperState extends State<ImageSwiper> {
   // Функция для инициализации SharedPreferences
   Future<void> _initPrefs() async {
     _prefs = await SharedPreferences.getInstance();
-    // Закомментирована часть кода, отвечающая за проверку кэша и видимость виджета
-    // bool hasAppeared = _prefs.getBool('hasAppeared') ?? false;
-    // setState(() {
-    //   isVisible = !hasAppeared;
-    // });
+
+      //bool hasAppeared = _prefs.getBool('hasAppeared') ?? false;
+      //setState(() {
+      // isVisible = !hasAppeared;
+    //});
   }
 
   // Функция для установки флага appeared в SharedPreferences

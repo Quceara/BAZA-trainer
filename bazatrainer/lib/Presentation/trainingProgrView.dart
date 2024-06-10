@@ -100,18 +100,18 @@ class _TrainingProgrViewState extends State<TrainingProgrView> {
   Widget _buildTrainingItem(int index, Map<String, dynamic> workout) {
     bool isExpanded = _expandedItemIndex == index;
 
-    return GestureDetector(
-      onTap: () => _toggleExpandedItem(index),
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: 8.0),
-        padding: EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child: Column(
-          children: [
-            Row(
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: () => _toggleExpandedItem(index),
+          child: Container(
+            margin: EdgeInsets.symmetric(vertical: 8.0),
+            padding: EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Row(
               children: [
                 Container(
                   width: 125,
@@ -146,55 +146,43 @@ class _TrainingProgrViewState extends State<TrainingProgrView> {
                 ),
               ],
             ),
-            if (isExpanded)
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Упражнения',
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.close, color: Colors.white),
-                        onPressed: () => _toggleExpandedItem(index),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 100, // Высота списка упражнений
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: workout['exercises'].length,
-                      itemBuilder: (context, exerciseIndex) {
-                        final exercise = workout['exercises'][exerciseIndex];
-                        return _buildExerciseItem(exercise);
-                      },
-                    ),
-                  ),
-                  SizedBox(height: 16.0),
-                  Container(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        print(workout);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue, // Цвет кнопки
-                        padding: EdgeInsets.all(16.0),
-                      ),
-                      child: Text(
-                        'Начать тренировку',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-          ],
+          ),
         ),
-      ),
+        AnimatedContainer(
+          duration: Duration(milliseconds: 200), // Длительность анимации
+          curve: Curves.easeInOut, // Кривая анимации
+          height: isExpanded ? 50.0 : 0, // Высота контейнера, меняется при раскрытии/закрытии
+          child: isExpanded ? ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: workout['exercises'].length,
+            itemBuilder: (context, exerciseIndex) {
+              final exercise = workout['exercises'][exerciseIndex];
+              return _buildExerciseItem(exercise);
+            },
+          ) : SizedBox.shrink(), // Прячем список упражнений, если блок не раскрыт
+        ),
+        if (isExpanded)
+          Container(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                print(workout);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white, // Цвет кнопки
+                padding: EdgeInsets.all(0.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0), // Устанавливаем радиус здесь
+                ),
+              ),
+              child: Text(
+                'Начать тренировку',
+                style: TextStyle(color: Colors.black, fontSize: 16),
+              ),
+            ),
+
+          ),
+      ],
     );
   }
 
@@ -213,22 +201,31 @@ class _TrainingProgrViewState extends State<TrainingProgrView> {
           ),
         );
       },
-      child: Container(
-        margin: EdgeInsets.all(8.0),
-        padding: EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          color: Colors.grey[800],
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child: Center(
-          child: Text(
-            exercise['title'],
-            style: TextStyle(color: Colors.white, fontSize: 16),
+      child: SizedBox(
+        height: 25.0,
+        child: Container(
+          margin: EdgeInsets.all(8.0),
+          padding: EdgeInsets.only(left: 5, right: 5),
+          decoration: BoxDecoration(
+            color: Colors.grey[800],
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Center(
+            child: Text(
+              exercise['title'],
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
           ),
         ),
       ),
     );
   }
+
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
