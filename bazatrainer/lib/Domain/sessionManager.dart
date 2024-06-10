@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:bazatrainer/Domain/supabaseCli.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class SessionManager {
+class SessionManager with ChangeNotifier {
   static final SessionManager _instance = SessionManager._internal();
   final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
   final SupabaseClient _client = SupabaseCli().client;
