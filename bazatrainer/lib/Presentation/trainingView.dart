@@ -1,4 +1,4 @@
-import 'package:bazatrainer/Presentation/trainingProgrView.dart';
+import 'package:bazatrainer/Presentation/trainingProgrammView.dart';
 import 'package:bazatrainer/menu.dart';
 import 'package:flutter/material.dart';
 import 'bottom_menu.dart';
@@ -59,7 +59,7 @@ class TrainingPage extends StatelessWidget {
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.of(context).pushReplacementNamed(
-                                  TrainingProgrView.routeName
+                                  TrainingProgrammView.routeName
                               );
                             },
                             style: ElevatedButton.styleFrom(

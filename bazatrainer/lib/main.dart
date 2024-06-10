@@ -1,5 +1,5 @@
 import 'package:bazatrainer/Presentation/exerciceView.dart';
-import 'package:bazatrainer/Presentation/trainingProgrView.dart';
+import 'package:bazatrainer/Presentation/trainingProgrammView.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,7 +7,10 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'Domain/sessionManager.dart';
 import 'Domain/supabaseCli.dart';
 import 'Presentation/regView.dart';
+import 'Presentation/trainingEndView.dart';
 import 'Presentation/trainingNewView.dart';
+import 'Presentation/trainingProgressView.dart';
+import 'Presentation/trainingStartView.dart';
 import 'first_launch.dart';
 import 'Presentation/profileView.dart';
 import 'glavnaya.dart';
@@ -48,8 +51,10 @@ class BazaTrainerApp extends StatelessWidget {
         DiaryPage.routeName: (context) => DiaryPage(),
         EatingPage.routeName: (context) => EatingPage(),
         SystemPage.routeName: (context) => SystemPage(),
-        TrainingProgrView.routeName: (context) => TrainingProgrView(),
+        TrainingProgrammView.routeName: (context) => TrainingProgrammView(),
         TrainingNewView.routeName: (context) => TrainingNewView(),
+
+        TrainingEndView.routeName: (context) => TrainingEndView(),
 
       },
     );

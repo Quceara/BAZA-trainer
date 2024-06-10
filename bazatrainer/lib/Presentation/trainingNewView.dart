@@ -1,4 +1,4 @@
-import 'package:bazatrainer/Presentation/trainingProgrView.dart';
+import 'package:bazatrainer/Presentation/trainingProgrammView.dart';
 import 'package:bazatrainer/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -200,7 +200,7 @@ class _TrainingNewViewState extends State<TrainingNewView> {
                               ),
                             );
                             Navigator.of(context).pushReplacementNamed(
-                                TrainingProgrView.routeName
+                                TrainingProgrammView.routeName
                             );
                           }
                         } catch (e) {
