@@ -6,7 +6,7 @@ class DatePickerDemo extends StatefulWidget {
   final int initialValueYear;
   final int maxYear;
   final Function(int, int, int) onDateChanged;
-  final Color backgroundColor; // Добавляем аргумент для цвета фона
+  final Color backgroundColor;
 
   DatePickerDemo({
     required this.initialValueDay,
@@ -14,7 +14,7 @@ class DatePickerDemo extends StatefulWidget {
     required this.initialValueYear,
     required this.maxYear,
     required this.onDateChanged,
-    required this.backgroundColor, // Добавляем аргумент для цвета фона
+    required this.backgroundColor,
   });
 
   @override

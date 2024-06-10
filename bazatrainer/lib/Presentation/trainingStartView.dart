@@ -119,11 +119,9 @@ class _TrainingStartViewState extends State<TrainingStartView> {
                     SizedBox(height: 16.0),
                     ElevatedButton(
                       onPressed: () async {
-                        // Restore progress to check if a workout is already in progress
                         await workoutTracker.restoreProgress();
 
                         if (workoutTracker.currentWorkout != null) {
-                          // Show confirmation dialog if a workout is in progress
                           bool? confirm = await showDialog(
                             context: context,
                             builder: (BuildContext context) {
@@ -149,7 +147,6 @@ class _TrainingStartViewState extends State<TrainingStartView> {
                           );
 
                           if (confirm == true) {
-                            // Start new workout if user confirms
                             workoutTracker.startWorkout(widget.workout);
                             Navigator.pushReplacement(
                               context,
@@ -160,7 +157,6 @@ class _TrainingStartViewState extends State<TrainingStartView> {
                               ),
                             );
                           } else {
-                            // Continue the previous workout
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
@@ -171,7 +167,6 @@ class _TrainingStartViewState extends State<TrainingStartView> {
                             );
                           }
                         } else {
-                          // No workouts in progress, just start a new one
                           workoutTracker.startWorkout(widget.workout);
                           Navigator.push(
                             context,

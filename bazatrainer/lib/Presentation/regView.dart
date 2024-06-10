@@ -7,7 +7,7 @@ import '../calendar.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:bazatrainer/Domain/sessionManager.dart';
 import 'package:bazatrainer/Domain/supabaseCli.dart';
-import 'package:bazatrainer/Data/regService.dart'; // Импортируем новый сервис
+import 'package:bazatrainer/Data/regService.dart';
 
 class regView extends StatelessWidget {
   @override
@@ -39,7 +39,7 @@ class regView extends StatelessWidget {
         ),
       ),
       body: Container(
-        color: Color.fromRGBO(27, 27, 27, 1), // Серый фон
+        color: Color.fromRGBO(27, 27, 27, 1),
         child: RegisterForm(),
       ),
     );
@@ -116,15 +116,13 @@ class _RegisterFormState extends State<RegisterForm> {
     return Padding(
       padding: EdgeInsets.all(16.0),
       child: Form(
-        autovalidateMode: AutovalidateMode.onUserInteraction, // Включаем авто-валидацию
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              // Используем Expanded для растяжения SingleChildScrollView
               child: SingleChildScrollView(
-                // Определяем область прокрутки
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -205,7 +203,7 @@ class _RegisterFormState extends State<RegisterForm> {
                                 _selectedYear = year;
                               });
                             },
-                            backgroundColor: Color.fromRGBO(27, 27, 27, 1), // Цвет фона
+                            backgroundColor: Color.fromRGBO(27, 27, 27, 1),
                           ),
                         ),
                       ),
@@ -329,7 +327,6 @@ class _RegisterFormState extends State<RegisterForm> {
             color: isPressed ? Colors.white : Colors.white24,
             width: 2.0,
           ),
-          //color: isPressed ? Colors.green : Colors.grey,
         ),
         child: SizedBox(
           width: 133,

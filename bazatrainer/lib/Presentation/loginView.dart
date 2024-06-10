@@ -3,7 +3,7 @@ import 'package:bazatrainer/Domain/supabaseCli.dart';
 import 'package:flutter/material.dart';
 import 'profileView.dart';
 import '../first_launch.dart';
-import '../Domain/password_validator.dart'; // Импортируем файл с регулярными выражениями
+import '../Domain/password_validator.dart';
 
 class loginView extends StatelessWidget {
   static const String routeName = '/loginView';
@@ -37,7 +37,7 @@ class loginView extends StatelessWidget {
         ),
       ),
       body: Container(
-        color: Color.fromRGBO(27, 27, 27, 1), // Серый фон
+        color: Color.fromRGBO(27, 27, 27, 1),
         child: loginForm(),
       ),
     );
@@ -99,7 +99,7 @@ class _loginFormState extends State<loginForm> {
               final email = emailController.text;
               final password = passwordController.text;
 
-              if (PasswordValidator.isFormValid() || true) { // Временное упрощение проверки
+              if (PasswordValidator.isFormValid() || true) {
                 final errorMessage = await LoginService().login(email, password);
                 if (errorMessage == null) {
                   if (!mounted) return;
@@ -110,7 +110,7 @@ class _loginFormState extends State<loginForm> {
                 } else {
                   if (!mounted) return;
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(errorMessage)), // Отображаем текст ошибки
+                    SnackBar(content: Text(errorMessage)),
                   );
                 }
               } else {

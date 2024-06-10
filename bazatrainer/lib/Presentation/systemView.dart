@@ -57,7 +57,7 @@ class SystemPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: BottomMenu(
-                currentIndex: 4, // Устанавливаем текущий индекс для "Glavnaya"
+                currentIndex: 4,
               ),
             ),
           ),

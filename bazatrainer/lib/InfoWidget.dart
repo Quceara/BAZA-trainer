@@ -28,20 +28,20 @@ class _ImageSwiperState extends State<ImageSwiper> {
     },
   ];
 
-  bool isVisible = true; // Инициализация переменной видимости
-  late SharedPreferences _prefs; // Инициализация SharedPreferences
-  late PageController _pageController; // Инициализация контроллера страниц
-  bool isLastSlide = false; // Флаг для определения последнего слайда
+  bool isVisible = true;
+  late SharedPreferences _prefs;
+  late PageController _pageController;
+  bool isLastSlide = false;
 
   @override
   void initState() {
     super.initState();
-    _initPrefs(); // Инициализация SharedPreferences
-    _pageController = PageController(); // Инициализация контроллера страниц
-    _pageController.addListener(_pageListener); // Добавление слушателя для контроллера страниц
+    _initPrefs();
+    _pageController = PageController();
+    _pageController.addListener(_pageListener);
   }
 
-  // Функция для инициализации SharedPreferences
+
   Future<void> _initPrefs() async {
     _prefs = await SharedPreferences.getInstance();
 
@@ -51,12 +51,10 @@ class _ImageSwiperState extends State<ImageSwiper> {
     //});
   }
 
-  // Функция для установки флага appeared в SharedPreferences
   Future<void> _setAppeared() async {
     await _prefs.setBool('hasAppeared', true);
   }
 
-  // Слушатель для контроллера страниц, определяющий последний слайд
   void _pageListener() {
     if (_pageController.page == imagesWithCaptions.length - 1) {
       setState(() {
@@ -72,10 +70,10 @@ class _ImageSwiperState extends State<ImageSwiper> {
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: isVisible, // Установка видимости виджета
+      visible: isVisible,
       child: Scaffold(
         body: Container(
-          color: Color.fromARGB(255, 27, 27, 27), // Задаем фон
+          color: Color.fromARGB(255, 27, 27, 27),
           child: Column(
             children: [
               Expanded(
@@ -87,7 +85,7 @@ class _ImageSwiperState extends State<ImageSwiper> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(16.0), // Скругление углов изображения
+                          borderRadius: BorderRadius.circular(16.0),
                           child: SizedBox(
                             height: MediaQuery.of(context).size.height *
                                 0.6, // 60% от высоты виджета
@@ -96,7 +94,7 @@ class _ImageSwiperState extends State<ImageSwiper> {
                                   0.6,
                               child: Image.asset(
                                 imagesWithCaptions[index]['image']!,
-                                fit: BoxFit.cover, // Обрезаем изображение
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
@@ -104,16 +102,16 @@ class _ImageSwiperState extends State<ImageSwiper> {
                         SizedBox(height: 20),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: 16.0), // Добавляем горизонтальные отступы
+                              horizontal: 16.0),
                           child: Text(
                             imagesWithCaptions[index]['caption']!,
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white, // Делаем текст белым для контраста
+                              color: Colors.white,
                             ),
                             textAlign:
-                            TextAlign.center, // Центрируем текст
+                            TextAlign.center,
                           ),
                         ),
                       ],
@@ -141,13 +139,13 @@ class _ImageSwiperState extends State<ImageSwiper> {
                     onPressed: () async {
                       await _setAppeared();
                       setState(() {
-                        isVisible = false; // Установка видимости в false при нажатии на кнопку
+                        isVisible = false;
                       });
                     },
                     child: Text(
                       isLastSlide ? 'Я готов!' : 'Пропустить',
                       style: TextStyle(
-                        color: Colors.white, // Делаем текст белым для контраста
+                        color: Colors.white,
                       ),
                     ),
                     style: TextButton.styleFrom(

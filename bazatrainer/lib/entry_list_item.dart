@@ -23,7 +23,7 @@ abstract class AbstractEntryListItem extends StatelessWidget {
           children: [
             entry['imagePath']!.isNotEmpty
                 ? ClipRRect(
-              borderRadius: BorderRadius.circular(4.0), // Опционально: скругленные углы изображения
+              borderRadius: BorderRadius.circular(4.0),
               child: Image.file(
                 File(entry['imagePath']!),
                 width: 100,

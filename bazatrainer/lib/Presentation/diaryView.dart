@@ -49,7 +49,7 @@ class DiaryPage extends StatelessWidget {
             child: EntryFormWidget(),
           ),
           Container(
-            padding: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 40), // Отступы, включая отступ снизу для подъема
+            padding: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 40),
             decoration: BoxDecoration(
               color: Color.fromRGBO(27, 27, 27, 1),
 

@@ -11,7 +11,7 @@ class FirstLaunchBuild extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/pictures/Geraklit.png'), // Замените на своё фото
+                image: AssetImage('assets/pictures/Geraklit.png'),
                 fit: BoxFit.fill,
               ),
             ),
@@ -20,8 +20,6 @@ class FirstLaunchBuild extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                // Фото заместо фона
-                // Для кнопки "НАЧАТЬ"
                 ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -39,12 +37,11 @@ class FirstLaunchBuild extends StatelessWidget {
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black, // Цвет кнопки
+                    backgroundColor: Colors.black,
                     fixedSize: Size(300, 50),
                   ),
                 ),
-                SizedBox(height: 20), // Пространство между кнопкой и текстом
-                // Текст "Уже есть аккаунт"
+                SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(

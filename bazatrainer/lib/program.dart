@@ -11,7 +11,6 @@ class TrainingProgramWidget extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            // Действие при нажатии на кнопку
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Color.fromRGBO(14, 14, 14, 1),

@@ -44,7 +44,7 @@ class TrainingPage extends StatelessWidget {
       drawer: CustomDrawer(),
       endDrawer: CustomNotification(),
       body: Container(
-        color: Color.fromRGBO(27, 27, 27, 1), // Set the background color to gray
+        color: Color.fromRGBO(27, 27, 27, 1),
         child: Stack(
           children: [
             Positioned.fill(
@@ -148,7 +148,7 @@ class TrainingPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: BottomMenu(
-                  currentIndex: 1, // Устанавливаем текущий индекс для "Glavnaya"
+                  currentIndex: 1,
                 ),
               ),
             ),

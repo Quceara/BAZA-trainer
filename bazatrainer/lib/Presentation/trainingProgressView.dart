@@ -79,7 +79,6 @@ class TrainingProgressView extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Block with Image
               Container(
                 padding: EdgeInsets.all(16.0),
                 child: Image.network(
@@ -89,7 +88,6 @@ class TrainingProgressView extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  // workoutTracker.moveToNextExercise();
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(

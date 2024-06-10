@@ -248,7 +248,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              // Действия при нажатии на текст "Редактировать"
                             },
                             child: Row(
                               children: [
@@ -262,7 +261,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              // Действия при нажатии на текст "Опубликовать"
                             },
                             child: Row(
                               children: [

@@ -11,7 +11,7 @@ class EatingPage extends StatefulWidget {
 }
 
 class _EatingPageState extends State<EatingPage> {
-  int _selectedIndex = 0; // Добавляем состояние для выбранного меню
+  int _selectedIndex = 0;
   late Future<List<Map<String, dynamic>>> _dataFuture;
 
   @override
@@ -63,7 +63,7 @@ class _EatingPageState extends State<EatingPage> {
       ),
       drawer: CustomDrawer(),
       endDrawer: CustomNotification(),
-      backgroundColor: Color.fromRGBO(27, 27, 27, 1), // Устанавливаем цвет фона страницы
+      backgroundColor: Color.fromRGBO(27, 27, 27, 1),
       body: Column(
         children: [
           // Первая часть
@@ -120,8 +120,6 @@ class _EatingPageState extends State<EatingPage> {
   }
 
   Future<List<Map<String, dynamic>>> _loadData() async {
-    // Этот метод должен загружать и возвращать данные, подходящие для страницы "Питание".
-    // Здесь вы можете сделать запрос к серверу или загрузить данные из локального хранилища.
     return [
       {
         'title': 'Пример пункта 1',
@@ -162,13 +160,10 @@ class _EatingPageState extends State<EatingPage> {
 
   List<Map<String, dynamic>> _filterData(List<Map<String, dynamic>> data) {
     if (_selectedIndex == 1) {
-      // Фильтрация по категории "Мои"
       return data.where((item) => item['category'] == 'Мои').toList();
     } else if (_selectedIndex == 2) {
-      // Фильтрация по категории "Готовые"
       return data.where((item) => item['category'] == 'Готовые').toList();
     } else {
-      // Все данные
       return data;
     }
   }
@@ -191,7 +186,6 @@ class _EatingPageState extends State<EatingPage> {
   Widget _buildItem(BuildContext context, int index, Map<String, dynamic> item) {
     return GestureDetector(
       onTap: () {
-        // Здесь вы можете добавить логику при нажатии на элемент, если необходимо
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 8.0),

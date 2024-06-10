@@ -46,7 +46,7 @@ class _TrainingProgrammViewState extends State<TrainingProgrammView> {
           );
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.green, // Цвет кнопки
+          backgroundColor: Colors.green,
           padding: EdgeInsets.all(16.0),
         ),
         child: Text(
@@ -60,10 +60,10 @@ class _TrainingProgrammViewState extends State<TrainingProgrammView> {
 
   List<Map<String, dynamic>> _filterWorkouts(List<Map<String, dynamic>> workouts, String nickname) {
     if (_selectedIndex == 1) {
-      // Фильтрация по имя пользователя
+
       return workouts.where((workout) => workout['trainer'] == nickname).toList();
     } else if (_selectedIndex == 2) {
-      // Фильтрация по готовым тренировкам (Baza Trainer)
+
       return workouts.where((workout) => workout['trainer'] == 'Baza Trainer').toList();
     } else {
       // Все тренировки
@@ -164,7 +164,7 @@ class _TrainingProgrammViewState extends State<TrainingProgrammView> {
                     ],
                   ),
                   SizedBox(
-                    height: 100, // Высота списка упражнений
+                    height: 100,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: workout['exercises'].length,
@@ -190,7 +190,7 @@ class _TrainingProgrammViewState extends State<TrainingProgrammView> {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue, // Цвет кнопки
+                        backgroundColor: Colors.blue,
                         padding: EdgeInsets.all(16.0),
                       ),
                       child: Text(
@@ -327,8 +327,7 @@ class _TrainingProgrammViewState extends State<TrainingProgrammView> {
               },
             ),
           ),
-          // Третья часть
-          if (_selectedIndex == 1) _buildNewWorkoutButton(), // Добавьте эту строку для отображения кнопки "Новая тренировка"
+          if (_selectedIndex == 1) _buildNewWorkoutButton(),
           Container(
             padding: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 40),
             decoration: BoxDecoration(

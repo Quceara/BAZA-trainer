@@ -38,7 +38,7 @@ class TrainingProgressTimerView extends StatelessWidget {
         children: [
           Expanded(
             child: Scaffold(
-              backgroundColor: Color.fromRGBO(27, 27, 27, 1), // Изменение цвета фона страницы
+              backgroundColor: Color.fromRGBO(27, 27, 27, 1),
               body: Center(
                 child: CircularCountDownTimer(
                   duration: 3,
@@ -59,14 +59,13 @@ class TrainingProgressTimerView extends StatelessWidget {
                   isTimerTextShown: true,
                   autoStart: true,
                   onComplete: () {
-                    // Действие после завершения таймера
                   },
                 ),
               ),
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 40), // Отступы, включая отступ снизу для подъема
+            padding: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 40),
             decoration: BoxDecoration(
               color: Color.fromRGBO(27, 27, 27, 1),
             ),

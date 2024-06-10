@@ -115,7 +115,7 @@ class _EntryFormWidgetState extends State<EntryFormWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(27, 27, 27, 1), // Изменение цвета фона страницы
+      backgroundColor: Color.fromRGBO(27, 27, 27, 1),
       body: ListView(
         children: [
           Padding(
@@ -197,7 +197,6 @@ class _EntryFormWidgetState extends State<EntryFormWidget> {
 
     await _saveEntry(newEntry);
 
-    // Сброс формы
     setState(() {
       _isFormVisible = false;
       _isTextFieldVisible = false;

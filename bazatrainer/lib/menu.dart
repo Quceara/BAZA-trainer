@@ -7,7 +7,7 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        color: Color.fromARGB(255, 27, 27, 27), // Фоновый цвет
+        color: Color.fromARGB(255, 27, 27, 27),
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
@@ -27,15 +27,15 @@ class CustomDrawer extends StatelessWidget {
               leading: Icon(
                 Icons.exit_to_app,
                 color: Colors.white,
-              ), // Иконка "Выйти"
+              ),
               title: Text(
                 'Выйти',
                 style: TextStyle(
-                  color: Colors.white, // Цвет текста "Выйти"
+                  color: Colors.white,
                 ),
               ),
               onTap: () {
-                // Переход на страницу FirstLaunch() и удаление всех предыдущих маршрутов
+
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => FirstLaunch()),
@@ -150,7 +150,6 @@ class _NotificationTileState extends State<NotificationTile> {
       child: Container(
         padding: EdgeInsets.all(10),
         margin: EdgeInsets.symmetric(vertical: 5),
-        // Добавим вертикальный отступ между уведомлениями
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
           borderRadius: BorderRadius.circular(10),
@@ -174,7 +173,7 @@ class _NotificationTileState extends State<NotificationTile> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
-                        color: Colors.black, // Цвет имени пользователя черный
+                        color: Colors.black,
                       ),
                     ),
                     Text(
@@ -194,14 +193,14 @@ class _NotificationTileState extends State<NotificationTile> {
                 truncatedText,
                 style: TextStyle(
                   fontSize: 14,
-                  color: Colors.black, // Цвет текста черный
+                  color: Colors.black,
                 ),
               ),
               secondChild: Text(
                 widget.notificationText,
                 style: TextStyle(
                   fontSize: 14,
-                  color: Colors.black, // Цвет текста черный
+                  color: Colors.black,
                 ),
               ),
               crossFadeState: _isExpanded

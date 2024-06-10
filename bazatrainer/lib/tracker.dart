@@ -22,15 +22,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _intervalValue = 30; // Инициализация _intervalValue
-  int _currentTime = 30; // Текущее время таймера
-  late Timer _timer; // Таймер
+  int _intervalValue = 30;
+  int _currentTime = 30;
+  late Timer _timer;
 
   void _setInterval(int? value) {
     if (value != null) {
       setState(() {
         _intervalValue = value;
-        _currentTime = value; // Сбросить текущее время при изменении интервала
+        _currentTime = value;
       });
     }
   }
@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
         if (_currentTime > 0) {
           _currentTime--;
         } else {
-          _timer.cancel(); // Остановить таймер при достижении 0
+          _timer.cancel();
         }
       });
     });
@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void dispose() {
-    _timer.cancel(); // Остановить таймер при уничтожении виджета
+    _timer.cancel();
     super.dispose();
   }
 

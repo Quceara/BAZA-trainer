@@ -47,12 +47,12 @@ class TrainingEndView extends StatelessWidget {
         children: [
           Expanded(
             child: Scaffold(
-              backgroundColor: Color.fromRGBO(27, 27, 27, 1), // Изменение цвета фона страницы
+              backgroundColor: Color.fromRGBO(27, 27, 27, 1),
               body: Text('Сюда'),
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 40), // Отступы, включая отступ снизу для подъема
+            padding: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 40),
             decoration: BoxDecoration(
               color: Color.fromRGBO(27, 27, 27, 1),
             ),
@@ -62,10 +62,6 @@ class TrainingEndView extends StatelessWidget {
           ),
         ],
       ),
-
-
-
-
       resizeToAvoidBottomInset: false,
     );
   }
